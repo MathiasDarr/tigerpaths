@@ -1,0 +1,29 @@
+USE GRAPH transfer_graph
+DROP QUERY vertexSumQuery
+
+CREATE QUERY vertexSumQuery() {
+  INT vsum;
+  SetAccum<EDGE> @@allEdges;
+  SetAccum<VERTEX> @@allVertices;
+
+  source = {node.*};
+  nodes = SELECT v 
+          FROM source-(:e)-:v
+          ACCUM @@allEdges += e,  @@allVertices+=v;
+  
+  #getTimeStampsSum(@@allEdges);
+  
+  #PRINT @@allEdges;
+  #getVertexesFromEdge(@@allEdges, @@allVertices);
+  #PRINT @@allVertices;
+  vsum = getVertexCountSum(@@allVertices);
+  #vsum = getVertexValueSum(@@allVertices);
+  PRINT vsum;
+
+}
+  
+  #vsum = getVertexValueSum(@@allNodes);
+  #PRINT vsum;
+
+INSTALL QUERY vertexSumQuery
+RUN QUERY vertexSumQuery()

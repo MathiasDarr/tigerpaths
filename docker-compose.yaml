@@ -1,0 +1,21 @@
+# This Docker Compose file can be used to quickly bootup Dgraph Zero
+# and Alpha in different Docker containers.
+
+# It mounts /tmp/data on the host machine to /dgraph within the
+# container. You can change /tmp/data to a more appropriate location.
+# Run `docker-compose up` to start Dgraph.
+#docker run -d -p 14022:22 -p 9000:9000 -p 14240:14240 --name tigergraph --ulimit nofile=1000000:1000000 -v ~/data:/home/tigergraph/mydata -t docker.tigergraph.com/tigergraph:latest
+version: "3.2"
+services:
+  tigergraph:
+    image: docker.tigergraph.com/tigergraph:latest
+    volumes:
+      - ./data:/home/tigergraph/data
+      - ./config:/home/tigergraph/config
+    ports:
+      - 9000:9000
+      - 14240:14240
+#    ulimits:
+#      nofile:
+#        soft: 1000000
+#        hard: 1000000
