@@ -1,0 +1,24 @@
+USE GRAPH transfer_graph
+DROP QUERY vertexValueQuery
+
+CREATE QUERY vertexValueQuery() {
+  INT vval;
+  SumAccum<INT> @@intAccum=0;
+  SetAccum<EDGE> @@allEdges;
+  SetAccum<VERTEX> @@allVertices;
+
+  source = {node.*};
+  nodes = SELECT v 
+          FROM source-(:e)-:v
+          ACCUM @@allEdges += e,  @@allVertices+=v, my_udf(v);
+  vval = getVertexValue(@@allVertices);
+  
+  
+  #incrementSumAccum(@@intAccum);
+  PRINT @@intAccum;
+  PRINT vval;
+  
+}
+  
+INSTALL QUERY vertexValueQuery
+RUN QUERY vertexValueQuery()

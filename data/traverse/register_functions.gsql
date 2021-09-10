@@ -1,2 +1,2 @@
 PUT ExprFunctions FROM "/home/tigergraph/data/traverse/udfs/ExprUtil.hpp"
-PUT ExprFunctions FROM "/home/tigergraph/data/traverse/udfs/traverse.hpp"
+PUT ExprFunctions FROM "/home/tigergraph/data/traverse/udfs/vertex_attributes.hpp"

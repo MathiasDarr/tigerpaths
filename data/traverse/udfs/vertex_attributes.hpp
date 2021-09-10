@@ -19,19 +19,20 @@
 namespace UDIMPL {
   typedef std::string string; 
 
-
-
-
-  inline void getVertexesFromEdge(SetAccum<EDGE>& edgeSet, SetAccum<VERTEX>& res) {
-    for (auto it = edgeSet.data_.begin(); it != edgeSet.data_.end(); ++it) {
-      res += it->srcVid;
-      res += it->tgtVid;
-    }
+  inline void vertex_udf(const VERTEX v){
+    
   }
 
-  inline int getVertexCountSum(SetAccum<VERTEX>& vertexSet) {
-    return vertexSet.size();
+  inline void incrementSumAccum(SumAccum<int>& number){
+    number +=4;
   }
+
+  inline int getVertexValue(SetAccum<VERTEX>& vertexSet) {
+    int count = 0;
+
+    return count;
+  }
+
 
 }
 
