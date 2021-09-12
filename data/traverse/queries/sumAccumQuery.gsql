@@ -1,0 +1,31 @@
+USE GRAPH transfer_graph
+DROP QUERY vertexValueQuery
+
+/*
+CREATE QUERY sumAccumQuery() {
+
+  SumAccum<INT> @@sumAccum;
+  SetAccum<INT> @@setAccum;
+
+  incrementSetAccum(@@setAccum);
+  incrementSumAccum(@@sumAccum);
+  PRINT @@sumAccum;
+  PRINT @@setAccum;
+
+}
+*/
+  
+
+CREATE QUERY vertexValueQuery(){
+  SetAccum<INT> @@vertexValues;
+  source = {node.*};
+  s = SELECT v FROM source:v  ACCUM @@vertexValues += vertex_const_udf(v);
+  PRINT @@vertexValues;
+}
+
+INSTALL QUERY vertexValueQuery
+RUN QUERY vertexValueQuery()
+
+
+#INSTALL QUERY sumAccumQuery
+#RUN QUERY sumAccumQuery()

@@ -1,24 +1,43 @@
 USE GRAPH transfer_graph
 DROP QUERY vertexValueQuery
+DROP QUERY intQuery
+
+
+CREATE QUERY intQuery(){
+  SumAccum<INT> @@numbers;
+  incrementSumAccum(@@numbers);
+  PRINT @@numbers;
+}
+/*
+CREATE QUERY get_neighbors(VERTEX<node> p){
+  BAG<VERTEX> @@neighbors;
+  source = {p}
+  SELECT s FROM source ACCUM @@neighbors +=
+
+}
+
+
 
 CREATE QUERY vertexValueQuery() {
   INT vval;
-  SumAccum<INT> @@intAccum=0;
+  SumAccum<INT> @@numbers;
+  SumAccum<INT> @@nodeSum;
   SetAccum<EDGE> @@allEdges;
   SetAccum<VERTEX> @@allVertices;
 
   source = {node.*};
   nodes = SELECT v 
           FROM source-(:e)-:v
-          ACCUM @@allEdges += e,  @@allVertices+=v, my_udf(v);
-  vval = getVertexValue(@@allVertices);
-  
-  
-  #incrementSumAccum(@@intAccum);
-  PRINT @@intAccum;
-  PRINT vval;
+          ACCUM @@allEdges += e,  @@allVertices+=v, @@nodeSum += vertex_udf(v);
+  #vval = getVertexValue(@@allVertices);
+  incrementSumAccum(@@numbers)
+
+  PRINT @@numbers;
   
 }
   
-INSTALL QUERY vertexValueQuery
-RUN QUERY vertexValueQuery()
+#INSTALL QUERY vertexValueQuery
+#RUN QUERY vertexValueQuery()
+*/
+INSTALL QUERY intQuery
+RUN QUERY intQuery()

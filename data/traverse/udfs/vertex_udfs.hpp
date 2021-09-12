@@ -20,50 +20,27 @@ namespace UDIMPL {
   typedef std::string string; 
 
   inline int vertex_const_udf(const VERTEX v){
-    int count = 0;  
-    return count;
+    VertexAttribute attr;
+
   }
 
   inline int vertex_ref_udf(VERTEX& v){
     return 1;
   }
 
-  inline void getVertexesFromEdge(SetAccum<EDGE>& edgeSet, SetAccum<VERTEX>& res) {
+  inline void incrementSetAccum(SetAccum<int64_t>& setAccum){
+    setAccum += 2;
+  }
+
+  inline void getNeighbors(SetAccum<EDGE>& edgeSet, SetAccum<VERTEX>& res) {
     for (auto it = edgeSet.data_.begin(); it != edgeSet.data_.end(); ++it) {
       res += it->srcVid;
       res += it->tgtVid;
     }
   }
-  /*
-
-  inline int vertex_const_udf(const VERTEX v){
-    int count = 5;  
-    VertexAttribute attr;
-    return count;
-  }
-
-  inline int vertex_ref_udf(VERTEX& v){
-    return 1;
-  }
-  */
 
 
-  inline void incrementSumAccum(SetAccum<int64_t>& setAccum){
-    int64_t a = 1;
-    setAccum += a;
-  }
 
-
-  inline void incrementSumAccum(SumAccum<int64_t> sumAccum){
-    int64_t a = 1;
-    sumAccum += a;
-  }
-
-  inline int getVertexValue(SetAccum<VERTEX>& vertexSet) {
-    int count = 0;
-
-    return count;
-  }
 
 
 }

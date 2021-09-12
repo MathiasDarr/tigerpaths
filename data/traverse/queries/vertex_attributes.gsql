@@ -1,0 +1,35 @@
+USE GRAPH transfer_graph
+DROP QUERY vertexAttributesQuery
+/*
+CREATE QUERY vertexAttributesQuery(VERTEX<node> p) {
+  SumAccum<INT> @@vertexSums;
+  ListAccum<VERTEX> @@vertices;
+  SetAccum<INT> @@vertexValues;
+  source = {p};
+  
+
+  nodes = SELECT v 
+          FROM source-(:e)-:v
+          ACCUM 
+            vertex_const_udf,
+            @@vertices += v
+            ;
+
+  PRINT @@vertexSums;
+  PRINT @@vertices;
+}
+*/
+
+CREATE QUERY vertexValueQuery(){
+  SetAccum<INT> @@vertexValues;
+  source = {node*}
+  nodes = SELECT v FROM source ACCUM @@vertexValues += vertex_const_udf(v);
+  PRINT @@vertexValues;
+}
+
+
+
+
+
+INSTALL QUERY vertexAttributesQuery
+RUN QUERY vertexAttributesQuery("n0")
